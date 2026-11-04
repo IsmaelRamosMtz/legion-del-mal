@@ -28,3 +28,5 @@ jobs:
             echo ls Planes/
             echo "Miembros"
             ls Miembros/
+            echo "Inteligencia"
+            ls Inteligencia/
