@@ -25,8 +25,8 @@ jobs:
             echo "Funciono"
             echo ""
             echo "Planes:"
-            echo ls Planes/
+            echo ls planes/
             echo "Miembros"
-            ls Miembros/
+            ls miembros/
             echo "Inteligencia"
-            ls Inteligencia/
+            ls inteligencia/
