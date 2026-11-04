@@ -26,5 +26,5 @@ jobs:
             echo ""
             echo "Planes:"
             echo ls Planes/
-            echo "Villanos"
-            ls Villanos/
+            echo "Miembros"
+            ls Miembros/
