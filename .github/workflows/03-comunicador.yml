@@ -22,9 +22,9 @@ on:
           required: true
           type: choice 
           options: 
-            - -f eyes
-            - -f hand
-            - -f dragon 
+            - eyes
+            - hand
+            - dragon 
 
         
 
