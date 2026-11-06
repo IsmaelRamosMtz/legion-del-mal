@@ -16,6 +16,18 @@ on:
             required: true
             default: "La mision fue un exito"
 
+
+        cow_character:
+          description: "Selecciona tu character: "
+          required: true
+          type: choice 
+          options: 
+            - -f eyes
+            - -f hand
+            - -f dragon 
+
+        
+
         prioridad: 
             description: "Nivel de prioridad"
             required: true
@@ -43,7 +55,7 @@ jobs:
           echo ""
           echo "Fecha: $(date -u + "%d/%m/%Y %H:%M:%S UTC")"
           echo "-------- Mensaje: --------"
-          cowsay -f eyes "${{ inputs.mensaje }}"
+          cowsay -f "${{ inputs.cow_character }}" "${{ inputs.mensaje }}"
           echo ""
           echo "--- ${{ inputs.villano }} ---"
 #- uses: actions/checkout@v4
