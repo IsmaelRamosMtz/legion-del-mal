@@ -1,0 +1,21 @@
+name: Brainiac revisa los issues
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  responder-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirmar la revisión de Brainiac
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GH_REPO" \
+            --body "Tu issue está siendo revisado por Brainiac. Gracias por reportarlo."
