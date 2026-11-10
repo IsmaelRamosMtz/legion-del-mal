@@ -2,8 +2,9 @@ name: Brainiac recibe los issues
 
 # Se ejecuta automáticamente cuando alguien abre un issue.
 on:
-  issues:
-    types: [opened]
+  #issues:
+    #types: [opened]
+    workflow_dispatch: # Permite ejecutar manualmente el workflow desde la pestaña Actions.
 
 # Permiso para publicar la respuesta en el issue.
 permissions:
