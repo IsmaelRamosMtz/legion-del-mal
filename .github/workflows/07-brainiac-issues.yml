@@ -1,21 +1,54 @@
-name: Brainiac revisa los issues
+name: Brainiac recibe los issues
 
+# Se ejecuta automáticamente cuando alguien abre un issue.
 on:
   issues:
     types: [opened]
 
+# Permiso para publicar la respuesta en el issue.
 permissions:
   issues: write
 
 jobs:
   responder-issue:
+    name: Confirmar recepción con Brainiac
     runs-on: ubuntu-latest
     steps:
-      - name: Confirmar la revisión de Brainiac
+      - name: Saludar al autor y explicar el estado del issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
         run: |
+          {
+            printf '## 🤖 Brainiac ha recibido tu issue #%s\n\n' "$ISSUE_NUMBER"
+            printf '¡Hola, @%s! 👋 Gracias por avisar a la Legión del Mal.\n\n' "$ISSUE_AUTHOR"
+            cat <<'MENSAJE'
+          ### 📍 Estado actual: pendiente de revisión
+
+          ✅ **Issue recibido:** tu reporte se registró correctamente.
+          ⏳ **Revisión pendiente:** este mensaje automático confirma la recepción; todavía no confirma que alguien haya comenzado a analizarlo.
+
+          ### 🔎 ¿Qué sigue?
+
+          El siguiente paso es que una persona del equipo revise el reporte y deje una actualización aquí. Este workflow no analiza el contenido ni cambia automáticamente el estado de la revisión.
+
+          ### 💬 ¿Quieres ayudarnos a investigarlo?
+
+          Si todavía no lo incluiste, responde en este mismo issue con:
+          - 📝 Qué intentabas hacer y qué ocurrió.
+          - 🔁 Los pasos para reproducir el problema.
+          - 🎯 Qué resultado esperabas.
+          - 📸 Capturas o mensajes de error, sin contraseñas ni datos privados.
+
+          Si tu issue es una propuesta, cuéntanos qué te gustaría mejorar y por qué. Si ya compartiste esos datos, ¡no necesitas repetirlos!
+
+          🔔 Suscríbete a este issue con **Subscribe / Suscribirse** para recibir las próximas actualizaciones.
+
+          ---
+          *🤖 Confirmación automática de Brainiac · «Los datos no mienten. ¡Tus detalles nos ayudan!»*
+          MENSAJE
+          } > "$RUNNER_TEMP/brainiac-respuesta.md"
           gh issue comment "$ISSUE_NUMBER" --repo "$GH_REPO" \
-            --body "Tu issue está siendo revisado por Brainiac. Gracias por reportarlo."
+            --body-file "$RUNNER_TEMP/brainiac-respuesta.md"
